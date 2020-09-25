@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[7]:
+# In[10]:
 
 
 from kafka import KafkaProducer
 import requests
 import time
+import logging
+import argparse 
+
 def main(args):
     logging.info('brokers={}'.format(args.brokers))
     logging.info('topic={}'.format(args.topic))
