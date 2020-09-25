@@ -3,6 +3,7 @@ import requests
 import time
 import logging
 import argparse 
+import os
 
 def main(args):
     logging.info('brokers={}'.format(args.brokers))
@@ -19,6 +20,8 @@ def main(args):
             logging.info(data)
             producer.send(args.topic, value=data)
             
+def get_arg(env, default):
+    return os.getenv(env) if os.getenv(env, "") != "" else default
             
 def parse_args(parser):
     args = parser.parse_args()
