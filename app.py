@@ -20,7 +20,7 @@ def main(args):
             data=requests.get('https://finnhub.io/api/v1/stock/candle?symbol=SPY&resolution=1&from='+str(new_time-420)+'&to='+str(new_time)+'&token=brmf0inrh5re15om3qog')
             logging.info(data.json())
             producer.send(args.topic, value=data.json())
-            time.sleep(60)
+            time.sleep(5)
 
 def get_arg(env, default):
     return os.getenv(env) if os.getenv(env, "") != "" else default
