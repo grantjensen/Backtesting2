@@ -4,6 +4,7 @@ import logging
 import os
 import numpy as np
 import argparse
+from kafka import KafkaConsumer
 
 def main(args):
     logging.info('brokers={}'.format(args.brokers))
