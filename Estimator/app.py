@@ -22,9 +22,10 @@ def main(args):
 
     while True:
         for message in consumer:
-            logging.info(message.value)
-            prices=message.value.c
-            volume=message.value.v
+            data=message.value
+            logging.info(data)
+            prices=data['c']
+            volume=data['v']
             ticker=1#Currently hard coded in bc we are only using SPY
             log_prices=np.log(np.diff(prices))
             prediction=model.predict([[ticker,log_prices[:],volume[:]]])
