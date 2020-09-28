@@ -17,7 +17,7 @@ def main(args):
     while(True):
         new_time=int(time.time())
         if(new_time>=old_time+60):
-            data=requests.get('https://finnhub.io/api/v1/stock/candle?symbol=SPY&resolution=1&from='+str(new_time-300)+'&to='+str(new_time)+'&token=brmf0inrh5re15om3qog')
+            data=requests.get('https://finnhub.io/api/v1/stock/candle?symbol=SPY&resolution=1&from='+str(new_time-420)+'&to='+str(new_time)+'&token=brmf0inrh5re15om3qog')
             logging.info(data.json())
             producer.send(args.topic, value=data.json())
             time.sleep(60)
