@@ -26,14 +26,14 @@ def main(args):
             logging.info(data)
             prices=data['c']
             volume=data['v']
-            log_prices=np.log(np.divide(prices[:-1],prices[1:]))
+            log_prices=np.log(np.divide(prices[1:],prices[:-1]))
             ticker=1#Currently hard coded in bc we are only using SPY
             inp=[0]*11
             inp[0]=ticker
             for i in range(1,6):
-                inp[i]=volume[i-1]
+                inp[i]=volume[6-1]
             for i in range(6,11):
-                inp[i]=log_prices[i-6]
+                inp[i]=log_prices[10-i]
             logging.info("Input: "+str(inp))
             prediction=model.predict([inp])
             logging.info("Output: "+str(prediction))
