@@ -26,10 +26,17 @@ def main(args):
             logging.info(data)
             prices=data['c']
             volume=data['v']
+            log_prices=np.log(np.divide(prices[:-1],prices[1:]))
             ticker=1#Currently hard coded in bc we are only using SPY
-            log_prices=np.log(np.diff(prices))
-            prediction=model.predict([[ticker,log_prices[:],volume[:]]])
-            logging.info(prediction)
+            inp=[0]*11
+            inp[0]=ticker
+            for i in range(1,6):
+                inp[i]=volume[i-1]
+            for i in range(6,11):
+                inp[i]=log_prices[i-6]
+            logging.info("Input: "+str(inp))
+            prediction=model.predict([inp])
+            logging.info("Output: "+str(prediction))
 
 def get_arg(env, default):
     return os.getenv(env) if os.getenv(env, "") != "" else default
