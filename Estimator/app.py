@@ -22,6 +22,7 @@ def main(args):
 
     while True:
         for message in consumer:
+            logging.info(consumer)
             prices=message.c
             volume=message.v
             ticker=1#Currently hard coded in bc we are only using SPY
