@@ -23,8 +23,9 @@ def main(args):
     while True:
         for message in consumer:
             data=message.value
-            logging.info(data)
             prices=data['c']
+            if (len(prices)<6):
+                continue
             volume=data['v']
             log_prices=np.log(np.divide(prices[1:],prices[:-1]))
             ticker=1#Currently hard coded in bc we are only using SPY
