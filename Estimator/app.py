@@ -31,7 +31,7 @@ def main(args):
             inp=[0]*11
             inp[0]=ticker
             for i in range(1,6):
-                inp[i]=volume[6-1]
+                inp[i]=volume[6-i]
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
             logging.info("Input: "+str(inp))
