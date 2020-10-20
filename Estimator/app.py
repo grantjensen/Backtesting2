@@ -23,6 +23,7 @@ def main(args):
     while True:
         for message in consumer:
             data=message.value
+            print(data)
             prices=data['c']
             if (len(prices)<6):
                 continue
@@ -65,7 +66,7 @@ if __name__ == '__main__':
     parser.add_argument(
             '--model',
             help='URL of base model to retrain, env variable MODEL_URL',
-            default='https://www.dropbox.com/s/96yv0r2gqzockmw/cifar-10_ratio%3D0.5.h5?dl=1')
+            default='https://raw.githubusercontent.com/grantjensen/Backtesting2/master/myModel.cpickle')
     
 
     args = parse_args(parser)
