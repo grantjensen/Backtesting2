@@ -41,6 +41,7 @@ def main(args):
                 inp[i]=log_prices[10-i]
             logging.info("Input: "+str(data['t'][0]+" "+str(inp))
             f=open('/data/myData.txt','w')
+            logging.info("Writing the following data: ", str(data['t'][0])
             f.write((data['t'][0], log_prices[0], prediction))
             f.close()
             prediction=model.predict([inp])
@@ -49,7 +50,7 @@ def main(args):
         if(((curr_time % 86400)<3600) and not called):
             update_model()
             called=True
-        if((curr_time % 86400)<3600):
+        if((curr_time % 86400)>3600):
             called=False
 
 def get_arg(env, default):
