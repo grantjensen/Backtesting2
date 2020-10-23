@@ -37,9 +37,10 @@ def main(args):
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
             logging.info("Input: "+str(data['t'][0]+" "+str(inp))
-            #Enter (data['t][0], data['c][0], prediction) into pvc
+            #Enter (data['t'][0], data['c'][0], prediction) into pvc
             prediction=model.predict([inp])
             logging.info("Output: "+str(prediction))
+        #Call update_model() once per day
 
 def get_arg(env, default):
     return os.getenv(env) if os.getenv(env, "") != "" else default
@@ -53,10 +54,8 @@ def parse_args(parser):
     return args
 
 def update_model():
-    while(True):
-        #Download data from pvc
-        #If model performed at a loss, send warning message
-        #Sleep one day(or have it called via a trigger)
+    #Download data from pvc
+    #If model performed at a loss, send warning message
                          
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
@@ -72,7 +71,7 @@ if __name__ == '__main__':
     parser.add_argument(
             '--model',
             help='URL of base model to retrain, env variable MODEL_URL',
-            default='https://raw.githubusercontent.com/grantjensen/Backtesting2/master/myModel.cpickle')
+            default='https://raw.githubusercontent.com/grantjensen/Backtesting2/master/myModel2.cpickle')
     
 
     args = parse_args(parser)
