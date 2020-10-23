@@ -20,10 +20,10 @@ def main(args):
 
     model=cp.load(urlopen(args.model))
 
+    prediction=0
     while True:
         for message in consumer:
             data=message.value
-            print(data)
             prices=data['c']
             if (len(prices)<6):
                 continue
@@ -36,7 +36,8 @@ def main(args):
                 inp[i]=volume[6-i]
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
-            logging.info("Input: "+str(inp))
+            logging.info("Input: "+str(data['t'][0]+" "+str(inp))
+            #Enter (data['t][0], data['c][0], prediction) into pvc
             prediction=model.predict([inp])
             logging.info("Output: "+str(prediction))
 
@@ -51,7 +52,12 @@ def parse_args(parser):
     args.model = get_arg('MODEL_URL', args.model)
     return args
 
-
+def update_model():
+    while(True):
+        #Download data from pvc
+        #If model performed at a loss, send warning message
+        #Sleep one day(or have it called via a trigger)
+                         
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(description='consume some stuff on kafka')
@@ -73,12 +79,3 @@ if __name__ == '__main__':
     main(args)
     logging.info('exiting')
     
-# get model
-# create kafka consumer
-# while(1):
-# get message from kafka
-# parse json
-# run regression
-# output results?
-#model = cp.load(urlopen("https://raw.githubusercontent.com/grantjensen/Backtesting2/master/myModel.cpickle"))
-#model.predict([[1,0,0,0,0,0,0,0,0,0,0]])
