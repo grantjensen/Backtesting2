@@ -41,8 +41,7 @@ def main(args):
                 inp[i]=log_prices[10-i]
             logging.info("Input: "+str(data['t'][0])+" "+str(inp))
             f=open('/data/final/myData.txt','w')
-            logging.info("Writing the following data: "+ str(data['t'][0]))
-            f.write("data['t'][0] log_prices[0] prediction")
+            f.write(str(data['t'][0])+" "+ str(log_prices[0])+" "+ str(prediction))
             f.close()
             prediction=model.predict([inp])
             logging.info("Output: "+str(prediction))
