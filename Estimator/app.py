@@ -42,7 +42,7 @@ def main(args):
             logging.info("Input: "+str(data['t'][0])+" "+str(inp))
             f=open('/data/final/myData.txt','w')
             logging.info("Writing the following data: ", str(data['t'][0]))
-            f.write((data['t'][0], log_prices[0], prediction))
+            f.write("data['t'][0] log_prices[0] prediction")
             f.close()
             prediction=model.predict([inp])
             logging.info("Output: "+str(prediction))
@@ -69,6 +69,8 @@ def update_model():
     working=0
     f=open('data/final/myData.txt','r')
     for line in f:
+        line=line.split()
+        line=[int(i) for i in line]
         if((curr_time-line[0])<86400):
             if(line[2]>0):#predict positive movement
                 working+=math.exp(line[1])
