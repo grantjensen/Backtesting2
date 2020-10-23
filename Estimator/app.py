@@ -43,7 +43,7 @@ def main(args):
             f=open('/data/final/myData.txt','w')
             f.write(str(data['t'][0])+" "+ str(log_prices[0])+" "+ str(prediction))
             f.close()
-            prediction=model.predict([inp])
+            prediction=model.predict([inp])[0]
             logging.info("Output: "+str(prediction))
         curr_time=time.time()
         if(((curr_time % 86400)<3600) and not called):
