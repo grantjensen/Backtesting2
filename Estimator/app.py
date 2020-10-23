@@ -74,7 +74,7 @@ def update_model():
                 working+=math.exp(line[1])
     f.close()
     if(working<0):
-        logging.info("Warning, consider editing model, total percent gain of today was: "+str(working)
+        logging.info("Warning, consider editing model, total percent gain of today was: "+str(working))
                          
                   
 if __name__ == '__main__':
