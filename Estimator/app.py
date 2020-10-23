@@ -37,6 +37,7 @@ def main(args):
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
             logging.info("Input: "+str(data['t'][0]+" "+str(inp))
+            with open('/data/
             #Enter (data['t'][0], data['c'][0], prediction) into pvc
             prediction=model.predict([inp])
             logging.info("Output: "+str(prediction))
