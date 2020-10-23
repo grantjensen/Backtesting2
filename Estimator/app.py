@@ -32,14 +32,14 @@ def main(args):
                 continue
             volume=data['v']
             log_prices=np.log(np.divide(prices[1:],prices[:-1]))
-            ticker=1#Currently hard coded in bc we are only using SPY
+            ticker=1 #Currently hard coded in bc we are only using SPY
             inp=[0]*11
             inp[0]=ticker
             for i in range(1,6):
                 inp[i]=volume[6-i]
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
-            logging.info("Input: "+str(data['t'][0]+" "+str(inp))
+            logging.info("Input: "+str(data['t'][0])+" "+str(inp))
             f=open('/data/final/myData.txt','w')
             logging.info("Writing the following data: ", str(data['t'][0])
             f.write((data['t'][0], log_prices[0], prediction))
