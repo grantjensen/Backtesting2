@@ -6,6 +6,8 @@ import numpy as np
 import argparse
 from kafka import KafkaConsumer
 from json import loads
+import time
+import math
 
 def main(args):
     logging.info('brokers={}'.format(args.brokers))
@@ -20,6 +22,7 @@ def main(args):
 
     model=cp.load(urlopen(args.model))
 
+    called=False
     prediction=0
     while True:
         for message in consumer:
@@ -37,11 +40,17 @@ def main(args):
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
             logging.info("Input: "+str(data['t'][0]+" "+str(inp))
-            with open('/data/
-            #Enter (data['t'][0], data['c'][0], prediction) into pvc
+            f=open('/data/myData.txt','w')
+            f.write((data['t'][0], log_prices[0], prediction))
+            f.close()
             prediction=model.predict([inp])
             logging.info("Output: "+str(prediction))
-        #Call update_model() once per day
+        curr_time=time.time()
+        if(((curr_time % 86400)<3600) and not called):
+            update_model()
+            called=True
+        if((curr_time % 86400)<3600):
+            called=False
 
 def get_arg(env, default):
     return os.getenv(env) if os.getenv(env, "") != "" else default
@@ -55,9 +64,18 @@ def parse_args(parser):
     return args
 
 def update_model():
-    #Download data from pvc
-    #If model performed at a loss, send warning message
+    curr_time=time.time()
+    working=0
+    f=open('data/myData.txt','r')
+    for line in f:
+        if((curr_time-line[0])<86400):
+            if(line[2]>0):#predict positive movement
+                working+=math.exp(line[1])
+    f.close()
+    if(working<0):
+        logging.info("Warning, consider editing model, total percent gain of today was: "+str(working)
                          
+                  
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(description='consume some stuff on kafka')
