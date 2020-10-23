@@ -66,7 +66,7 @@ def parse_args(parser):
 def update_model():
     curr_time=time.time()
     working=0
-    f=open('data/final/myData.txt','r')
+    f=open('/data/final/myData.txt','r')
     for line in f:
         line=line.split()
         line=[int(i) for i in line]
