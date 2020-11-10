@@ -70,7 +70,7 @@ def update_model():
     f=open('/data/final/myData.txt','r')
     for line in f:
         line=line.split()
-        logging.info(line)
+        line=[float(i) for i in line]
         if((curr_time-line[0])<86400):
             if(line[2]>0):#predict positive movement
                 working+=math.exp(line[1])
