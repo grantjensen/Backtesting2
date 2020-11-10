@@ -22,10 +22,9 @@ def main(args):
 
     model=cp.load(urlopen(args.model))
 
-    called=False
-    prediction=0
+    called=False#Boolean to detect whether we've checked if the model is out of date today
     while True:
-        for message in consumer:
+        for message in consumer:#Iterate through Kafka messages received
             data=message.value
             prices=data['c']
             if (len(prices)<6):
@@ -40,13 +39,13 @@ def main(args):
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
             logging.info("Input: "+str(data['t'][0])+" "+str(inp))
-            f=open('/data/final/myData.txt','w')
+            f=open('/data/final/myData.txt','w')#Write data to pvc mountd to /data/final
             f.write(str(data['t'][0])+" "+ str(log_prices[0])+" "+ str(prediction))
             f.close()
             prediction=model.predict([inp])[0]
             logging.info("Output: "+str(prediction))
             curr_time=time.time()
-            if(((curr_time % 400)<3600) and not called):#Change to "% 86400)<3600)..."
+            if(((curr_time % 86400)<3600) and not called):#Call update model @midnight every day
                 update_model()
                 called=True
             if((curr_time % 86400)>3600):
@@ -67,7 +66,7 @@ def update_model():
     logging.info("Checking model health...")
     curr_time=time.time()
     working=0
-    f=open('/data/final/myData.txt','r')
+    f=open('/data/final/myData.txt','r')#Read pvc data
     for line in f:
         line=line.split()
         line=[float(i) for i in line]
@@ -75,7 +74,7 @@ def update_model():
             if(line[2]>0):#predict positive movement
                 working+=math.exp(line[1])
     f.close()
-    if(working<0):
+    if(working<0):#If overall negative gains over last 24 hours:
         logging.info("Warning, consider editing model, total percent gain of today was: "+str(working))
                          
                   
