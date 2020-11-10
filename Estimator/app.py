@@ -46,7 +46,7 @@ def main(args):
             prediction=model.predict([inp])[0]
             logging.info("Output: "+str(prediction))
         curr_time=time.time()
-        if(((curr_time % 86400)<3600) and not called):
+        if(((curr_time % 400)<3600) and not called):#Change to "% 86400)<3600)..."
             update_model()
             called=True
         if((curr_time % 86400)>3600):
@@ -64,6 +64,7 @@ def parse_args(parser):
     return args
 
 def update_model():
+    logging.info("Checking model health...")
     curr_time=time.time()
     working=0
     f=open('/data/final/myData.txt','r')
