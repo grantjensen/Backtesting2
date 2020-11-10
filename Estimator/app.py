@@ -39,7 +39,7 @@ def main(args):
                 inp[i]=volume[6-i]
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
-            logging.info("Input: "+str(data['t'][0])+" "+str(inp))
+            logging.info("Inputs: "+str(data['t'][0])+" "+str(inp))
             f=open('/data/final/myData.txt','w')
             f.write(str(data['t'][0])+" "+ str(log_prices[0])+" "+ str(prediction))
             f.close()
