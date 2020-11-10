@@ -39,7 +39,7 @@ def main(args):
                 inp[i]=volume[6-i]
             for i in range(6,11):
                 inp[i]=log_prices[10-i]
-            logging.info("Inputs: "+str(data['t'][0])+" "+str(inp))
+            logging.info("Input: "+str(data['t'][0])+" "+str(inp))
             f=open('/data/final/myData.txt','w')
             f.write(str(data['t'][0])+" "+ str(log_prices[0])+" "+ str(prediction))
             f.close()
@@ -70,7 +70,7 @@ def update_model():
     f=open('/data/final/myData.txt','r')
     for line in f:
         line=line.split()
-        line=[int(i) for i in line]
+        logging.info(line)
         if((curr_time-line[0])<86400):
             if(line[2]>0):#predict positive movement
                 working+=math.exp(line[1])
